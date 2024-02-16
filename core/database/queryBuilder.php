@@ -33,6 +33,20 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function selectRecord($table,$column,$id,$value)
+    {
+        $statement = $this->pdo->prepare("select {$column} from {$table} where {$id}={$value}");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function delete($table,$id,$value)
+    {
+        $statement = $this->pdo->prepare("delete from {$table} where {$id}={$value}");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function insert($table, $parameters)
     {
         $sql = sprintf(
@@ -49,7 +63,7 @@ class QueryBuilder
 
         } catch (PDOException $e) {
 
-            die('Somthing is wrong');
+            die($e->getMessage());
 
         }
     }
