@@ -1,6 +1,6 @@
 <?php require 'partials/header.php'; ?>
 <?php require 'partials/adminMenu.php'; ?>
-<?php $category=$database->selectALL('category') ?>
+<?php $category=$database->selectALL('category');?>
 <?php $post=$database->selectALL('blogs') ?>
 <section class="p-10 space-y-10 ml-80">
     <div class="flex justify-between mt-7">

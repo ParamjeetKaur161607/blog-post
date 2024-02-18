@@ -10,9 +10,11 @@
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title"
                     class="p-2  h-10  border-b outline-none"
-                    value="">
+                    value="<?php if(isset($_GET['title'])){
+                    echo $_GET['title'];} ?>">
                 <span class="text-red-500 text-sm">
-                    
+                    <?php if(isset($_GET['TitleError'])){
+                    echo $_GET['TitleError'];} ?>
                 </span>
             </div>
             
@@ -20,9 +22,11 @@
                 <label for="author">Author</label>
                 <input type="text" name="author" id="author"
                     class="p-2 h-10  border-b outline-none "
-                    value="">
+                    value="<?php if(isset($_GET['author'])){
+                    echo $_GET['author'];} ?>">
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_GET['AuthorError'])){
+                    echo $_GET['AuthorError'];} ?>
                 </span>
 
             </div>
@@ -44,7 +48,8 @@
                     ?>
                 </select>
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_GET['CategoryError'])){
+                    echo $_GET['CategoryError'];} ?>
                 </span>
 
             </div>
@@ -53,18 +58,22 @@
                 <label for="content">Content</label>
                 <textarea name="content" id="content"
                     class="p-2  border outline-none " cols="30"
-                    rows="5"></textarea>
+                    rows="5"><?php if(isset($_GET['content'])){
+                    echo $_GET['content'];} ?></textarea>
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_GET['ContentError'])){
+                    echo $_GET['ContentError'];} ?>
                 </span>
 
             </div>
 
             <div class="flex flex-col col-span-2">
                 <input type="file" name="post" id="post" aria-labelledby="post"
-                    class="rounded-lg h-10 outline-none">
+                    class="rounded-lg h-10 outline-none" value="<?php if(isset($_FILES['post']["name"])){
+                    echo $_FILES['post']["name"];} ?>">
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_FILES['post']["name"])){
+                    echo $_FILES['post']["name"];} ?>
                 </span>
             </div>
             <div class="flex flex-col col-span-2">

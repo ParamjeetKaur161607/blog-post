@@ -11,7 +11,9 @@
                 <input type="text" name="category" id="category"
                     class="p-2 h-10 bg-gray-300 border-gray-400 border-b outline-none" value="<?= $category[0]['category']?>">
                 <span class="text-red-500 py-5">
-                   
+                <?php if(isset($_GET['error'])){
+                    echo $_GET['error'];
+                } ?>  
                 </span>
 
             </div>

@@ -1,3 +1,7 @@
+<?php session_start(); ?>
+<?php if(!isset($_SESSION['loginAdmin'])){
+    header("location: /blog/admin");
+} ?>
 <?php require 'core/validation.php'; ?>
 <aside class="bg-gray-900 border-r h-screen w-[20rem] fixed leading-10 flex flex-col gap-5 items-center justify-between">
     <div class="w-full flex flex-col items-center gap-20 ">
@@ -8,6 +12,7 @@
         </button>
         <nav class="w-full ">
             <ul class="font-semi-bold text-gray-400 text-xl w-full font-bold">
+                <?php var_dump($_SESSION['loginAdmin']); ?>
                 <li class="p-5 pl-10"><a href="/blog/admin/blogs" target="iframe">Blogs</a></li>
                 <li class="p-5 pl-10"><a href="/blog/admin/categories" target="iframe">Categories</a></li>
                 <li class="p-5 pl-10"><a href="/blog/admin/add-blog" target="iframe">Add Blog</a></li>    
@@ -21,7 +26,7 @@
 
     </div>
     <footer class="w-full text-gray-300 font-bold text-xl">
-        <form action="ADMIN_LOGIN.PHP" method="post">
+        <form action="/blog/admin/adminController" method="post">
             <button name="log_out_admin" class="bg-red-700 w-full py-5">Log Out</button>
         </form>
     </footer>

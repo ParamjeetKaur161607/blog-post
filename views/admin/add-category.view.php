@@ -10,8 +10,9 @@
                 <input type="text" name="category" id="category"
                     class="p-2 h-10 bg-gray-300 border-gray-400 border-b outline-none">
                 <span class="text-red-500 py-5">
-                   <?= $validation->error ?>
-                </span>
+                   <?php if(isset($_GET['error'])){
+                    echo $_GET['error'];}?>    
+                </span> 
             </div>
             <div class="flex flex-col">
                 <input type="submit" name="add_category" id="add_category"
