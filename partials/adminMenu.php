@@ -12,7 +12,6 @@
         </button>
         <nav class="w-full ">
             <ul class="font-semi-bold text-gray-400 text-xl w-full font-bold">
-                <?php var_dump($_SESSION['loginAdmin']); ?>
                 <li class="p-5 pl-10"><a href="/blog/admin/blogs" target="iframe">Blogs</a></li>
                 <li class="p-5 pl-10"><a href="/blog/admin/categories" target="iframe">Categories</a></li>
                 <li class="p-5 pl-10"><a href="/blog/admin/add-blog" target="iframe">Add Blog</a></li>    

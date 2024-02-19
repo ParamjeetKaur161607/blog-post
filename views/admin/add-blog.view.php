@@ -72,8 +72,8 @@
                     class="rounded-lg h-10 outline-none" value="<?php if(isset($_FILES['post']["name"])){
                     echo $_FILES['post']["name"];} ?>">
                 <span class="text-red-500 text-sm">
-                <?php if(isset($_FILES['post']["name"])){
-                    echo $_FILES['post']["name"];} ?>
+                <?php if(isset($_GET['postError'])){
+                    echo $_GET['postError'];} ?>
                 </span>
             </div>
             <div class="flex flex-col col-span-2">

@@ -34,19 +34,24 @@ if (isset($_POST['add-blog'])) {
     $postError =$validation->isPostImageValid();
 
     if (!strlen($TitleError) && !strlen($contentError) && !strlen($authorError) && !strlen($categoryError) && !strlen($postError)) {
+
+        if (move_uploaded_file($_FILES['post']["tmp_name"], $validation->path)) {
+            $database->insert('blogs', [
+                'title' => $_REQUEST['title'],
+                'content' => $_REQUEST['content'],
+                'author' => $_REQUEST['author'],
+                'category' => $id,
+                'post' => $_FILES['post']['name'],
+            ]);
+            header('location: /blog/admin/blogs');
+            exit();
+        } else {
+            $postError = "file location error";
+        }       
         
-        $database->insert('blogs', [
-            'title' => $_REQUEST['title'],
-            'content' => $_REQUEST['content'],
-            'author' => $_REQUEST['author'],
-            'category' => $id,
-            'post' => $_FILES['post']['name'],
-        ]);
-        header('location: /blog/admin/blogs');
-        exit();
 
     } else {
-        header("location: /blog/admin/add-blog?" . http_build_query(['TitleError' => $TitleError, 'ContentError' => $contentError, 'AuthorError' => $authorError, 'CategoryError' => $categoryError, 'PostError' => $PostError, 'categoryId' => $categoryId, 'title' => $validation->title, 'author' => $validation->author, 'content' => $validation->content, 'category' => $validation->category, 'post' => $validation->post, ]));
+        header("location: /blog/admin/add-blog?" . http_build_query(['TitleError' => $TitleError, 'ContentError' => $contentError, 'AuthorError' => $authorError, 'CategoryError' => $categoryError, 'postError' => $postError, 'categoryId' => $categoryId, 'title' => $validation->title, 'author' => $validation->author, 'content' => $validation->content, 'category' => $validation->category, 'post' => $validation->post, ]));
         exit();
     }
 }
@@ -60,7 +65,7 @@ if (isset($_POST['add_category'])) {
         $database->insert('category', [
             'category' => $_REQUEST['category'],
         ]);
-        header('location: /blog/admin/blogs');
+        header('location: /blog/admin/categories');
         exit();
     } else {
         header("location: /blog/admin/add-category?" . http_build_query(['error' => $error]));
@@ -94,19 +99,45 @@ if (isset($_POST['update_category'])) {
 
 if (isset($_POST['update-blog'])) {
     $category = $database->selectALL('category');
+    $validation->title = trim($_POST['title']);
+    $validation->author = trim($_POST['author']);
+    $validation->content = trim($_POST['content']);
+    $validation->category = trim($_POST['category']);
+    $validation->post = $_FILES['post'];
+
     foreach ($category as $key => $value) {
-        if ($value['category'] == $_REQUEST['category']) {
+        if ($value['category'] == $validation->category) {
             $id = $value['id'];
         }
     }
-    $database->update('blogs', [
-        'title' => $_REQUEST['title'],
-        'content' => $_REQUEST['content'],
-        'author' => $_REQUEST['author'],
-        'category' => $id,
-        'post' => $_FILES['post']['name'],
-    ], 'id', array_key_first($_REQUEST));
-    header('location: /blog/admin/blogs');
+
+    $data = $database->selectALL('blogs');
+    $titles = array_column($data, 'title');
+    $title=$database->selectRecord('blogs','title','id',array_key_first($_REQUEST));
+    $TitleError = $validation->isTitleValid($validation->title, $titles);
+    $CurrentTitle=array_column($title,'title');
+       
+    $authorError = $validation->isAuthorValid($validation->author);
+    $categoryError = $validation->notEmpty($validation->category, "Please select a category");
+    $contentError = $validation->isContentValid($validation->content);
+    $postError =$validation->isPostImageValid();
+
+    if (!strlen($TitleError) && !strlen($contentError) && !strlen($authorError) && !strlen($categoryError)) {
+        
+        $database->update('blogs', [
+            'title' => $_REQUEST['title'],
+            'content' => $_REQUEST['content'],
+            'author' => $_REQUEST['author'],
+            'category' => $id,
+            'post' => $_FILES['post']['name'],
+        ], 'id', array_key_first($_REQUEST));
+        header('location: /blog/admin/blogs');
+        exit();
+
+    } else {
+        header("location: /blog/admin/add-blog?" . http_build_query(['TitleError' => $TitleError, 'ContentError' => $contentError, 'AuthorError' => $authorError, 'CategoryError' => $categoryError, 'PostError' => $PostError, 'categoryId' => $categoryId, 'title' => $validation->title, 'author' => $validation->author, 'content' => $validation->content, 'category' => $validation->category, 'post' => $validation->post, ]));
+        exit();
+    }
 }
 
 if (isset($_POST['admin_login'])) {

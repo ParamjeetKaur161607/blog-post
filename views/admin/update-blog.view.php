@@ -16,7 +16,8 @@
                     class="p-2  h-10  border-b outline-none"
                     value="<?=$value['title']?>">
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_GET['TitleError'])){
+                    echo $_GET['TitleError'];} ?>
                 </span>
             </div>
             
@@ -26,9 +27,9 @@
                     class="p-2 h-10  border-b outline-none "
                     value="<?=$value['author']?>">
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_GET['AuthorError'])){
+                    echo $_GET['AuthorError'];} ?>
                 </span>
-
             </div>
             <div class="flex flex-col">
                 <label for="category">Category</label>
@@ -47,7 +48,8 @@
                     <?php endforeach; ?>
                 </select>
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_GET['CategoryError'])){
+                    echo $_GET['CategoryError'];} ?>
                 </span>
 
             </div>
@@ -58,7 +60,9 @@
                     class="p-2  border outline-none " cols="30"
                     rows="5"> <?=$value['content']?></textarea>
                 <span class="text-red-500 text-sm">
-               
+                <?php if(isset($_GET['ContentError'])){
+                    echo $_GET['ContentError'];} ?>
+                </span>
                 </span>
 
             </div>
@@ -68,7 +72,8 @@
                     class="rounded-lg h-10 outline-none">
                     <?=$value['post']?>
                 <span class="text-red-500 text-sm">
-                    
+                <?php if(isset($_FILES['post']["name"])){
+                    echo $_FILES['post']["name"];} ?>
                 </span>
             </div>
             <div class="flex flex-col col-span-2">

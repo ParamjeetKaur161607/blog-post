@@ -2,7 +2,7 @@
 
 trait variables
 {
-    public $all, $title, $author, $category, $content,$post;
+    public $all, $title, $author, $category, $content,$post,$path;
 }
 class Validation
 {
@@ -135,24 +135,24 @@ class Validation
         $allowedExtensions = array("jpg", "jpeg", "png");
         $fileExtension = pathinfo($blogImageName, PATHINFO_EXTENSION);
 
-        if (empty($content)) {
+        if (empty($_FILES['post']["name"])) {
             return "Content field can't be empty!";
         }
 
         if (in_array($fileExtension,  $allowedExtensions)) {
-            $path = "public/blog/" . $blogImageName;
+            $this->path = "public/blog/" . $blogImageName;
         } else {
-            $this->error_book_image = "Invalid file type. Allowed file types: " . implode(", ", $allowedExtensions);
+            return "Invalid file type. Allowed file types: " . implode(", ", $allowedExtensions);
         }
 
-        if (move_uploaded_file($_FILES['post']["tmp_name"], $path)) {           
-            return true;
-        } else {
-            return "file location error";
-        }
+        // if (move_uploaded_file($_FILES['post']["tmp_name"], $path)) {           
+        //     return true;
+        // } else {
+        //     return "file location error";
+        // }
         
 
-    }
+    }   
 
 }
 

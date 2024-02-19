@@ -30,7 +30,7 @@
             <section class="mt-10">
                 <div class="border flex p-5 gap-10 justify-between">
                     <div class="flex p-5 gap-10 ">
-                        <img src="../public/<?= $value["post"] ?>" alt="" class="h-46 w-40">
+                        <img src="../public/blog/<?= $value["post"] ?>" alt="" class="h-46 w-40">
                         <div class="space-y-5 flex flex-col justify-between">
                             <h2 class="text-4xl hover:text-blue-700">
                                 <?= $value["title"] ?>

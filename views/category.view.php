@@ -11,7 +11,7 @@
         <?php foreach ($post as $key => $value): ?>
             <section class="flex flex-col justify-center px-72">
                 <div class="border space-y-5">
-                    <img src="public/<?= $value["post"] ?>" alt="" class="h-[40rem] w-full">
+                    <img src="public/blog/<?= $value["post"] ?>" alt="" class="h-[40rem] w-full">
                     <div class="px-20 space-y-5">
                         <h2 class="text-4xl hover:text-blue-700">
                             <?= $value["title"] ?>
